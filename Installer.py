@@ -8,9 +8,10 @@ def download_file(url, filename):
         logging.info(f"Die Datei '{filename}' wurde erfolgreich heruntergeladen.")
     except Exception as e:
         logging.error(f"Fehler beim Herunterladen der Datei: {e}")
+        pass
 
 # Konfigurieren des Loggings
-logging.basicConfig(filename=os.path.join(os.path.dirname(__file__), 'download.log'), level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename=os.path.join(os.path.dirname(__file__), 'Instalation.log'), level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # URL der Datei zum Herunterladen
 url = "https://raw.githubusercontent.com/Pussycat4/Sprachassistent/main/Start.py"
