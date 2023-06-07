@@ -43,5 +43,5 @@ urllib.request.urlretrieve(code_url, code_file)
 print("Führe den heruntergeladenen Code aus...")
 exec(open(code_file).read())
 
-# Fenster geöffnet halten
-input("Drücken Sie eine beliebige Taste, um das Programm zu beenden...")
+# Eingabeaufforderung, um das Fenster offen zu halten
+input("Die Installation ist abgeschlossen. Drücken Sie Enter, um das Programm zu beenden...")
