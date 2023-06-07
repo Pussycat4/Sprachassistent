@@ -30,7 +30,7 @@ for library in tqdm(libraries, desc="Herunterladen und Installieren"):
 print("Die Bibliotheken wurden erfolgreich heruntergeladen und installiert.")
 
 # URL zum Herunterladen des Codes
-code_url = "https://raw.githubusercontent.com/Pussycat4/Sprachassistent/e4d72057aa5d9d9a1f4a9dbb2458622b4a9c0f48/Start.py"
+code_url = "https://raw.githubusercontent.com/Pussycat4/Sprachassistent/main/Start.py"
 
 # Zielverzeichnis zum Speichern des Codes
 code_file = os.path.join(current_directory, "Start.py")
