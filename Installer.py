@@ -1,10 +1,12 @@
 import os
-import sys
 import subprocess
 import urllib.request
 
 def install_package(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package, "--target", "."])
+
+def download_file(url, filename):
+    urllib.request.urlretrieve(url, filename)
 
 # Installation von tqdm
 install_package("tqdm")
@@ -15,7 +17,7 @@ libraries = [
     "PyAudio",
     "pyttsx3",
     "nltk",
-    "torch",
+    "torch" if torch_available else "tensorflow",
     "opencv-python",
     "pydub"
 ]
@@ -29,14 +31,8 @@ for library in tqdm(libraries, desc="Herunterladen und Installieren"):
 
 print("Die Bibliotheken wurden erfolgreich heruntergeladen und installiert.")
 
-# URL zum Herunterladen des Codes
-code_url = "https://raw.githubusercontent.com/Pussycat4/Sprachassistent/main/Start.py"
+# Download des Codes von der URL
+download_file("https://raw.githubusercontent.com/Pussycat4/Sprachassistent/main/Start.py", "Start.py")
 
-# Zielverzeichnis zum Speichern des Codes
-code_file = os.path.join(current_directory, "Start.py")
-
-# Herunterladen des Codes
-print("Lade den Code herunter...")
-urllib.request.urlretrieve(code_url, code_file)
-
-print("Der Code wurde erfolgreich heruntergeladen.")
+# Ausführen des heruntergeladenen Codes
+subprocess.check_call([sys.executable, "Start.py"])
