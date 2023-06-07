@@ -15,7 +15,7 @@ libraries = [
     "PyAudio",
     "pyttsx3",
     "nltk",
-    "torch" if torch_available else "tensorflow",
+    "torch",
     "opencv-python",
     "pydub"
 ]
@@ -29,19 +29,14 @@ for library in tqdm(libraries, desc="Herunterladen und Installieren"):
 
 print("Die Bibliotheken wurden erfolgreich heruntergeladen und installiert.")
 
-# URL des Codes
-code_url = "https://raw.githubusercontent.com/Pussycat4/Sprachassistent/main/Start.py"
+# URL zum Herunterladen des Codes
+code_url = "https://raw.githubusercontent.com/Pussycat4/Sprachassistent/e4d72057aa5d9d9a1f4a9dbb2458622b4a9c0f48/Start.py"
 
-# Zielpfad zum Speichern des heruntergeladenen Codes
+# Zielverzeichnis zum Speichern des Codes
 code_file = os.path.join(current_directory, "Start.py")
 
 # Herunterladen des Codes
 print("Lade den Code herunter...")
 urllib.request.urlretrieve(code_url, code_file)
 
-# Ausführen des heruntergeladenen Codes
-print("Führe den heruntergeladenen Code aus...")
-exec(open(code_file).read())
-
-# Eingabeaufforderung, um das Fenster offen zu halten
-input("Die Installation ist abgeschlossen. Drücken Sie Enter, um das Programm zu beenden...")
+print("Der Code wurde erfolgreich heruntergeladen.")
