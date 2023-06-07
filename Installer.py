@@ -1,5 +1,6 @@
 import os
 import urllib.request
+import subprocess
 import logging
 
 # URL zum Herunterladen des Codes
@@ -25,5 +26,13 @@ def create_log_entry(filename, message):
 # Herunterladen des Codes von der URL
 download_file(url, filename)
 
+# Installieren des Sprache-zu-Text-Programms
+try:
+    subprocess.check_call(["pip", "install", "SpeechRecognition"])
+    create_log_entry("SpeechRecognition", "Erfolgreich installiert.")
+except subprocess.CalledProcessError as e:
+    create_log_entry("SpeechRecognition", f"Fehler beim Installieren: {e}")
+
 # Erstellen eines Log-Eintrags
 create_log_entry(filename, "Datei erfolgreich heruntergeladen.")
+
