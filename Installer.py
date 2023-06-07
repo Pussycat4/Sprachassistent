@@ -2,25 +2,28 @@ import os
 import urllib.request
 import logging
 
+# URL zum Herunterladen des Codes
+url = "https://raw.githubusercontent.com/Pussycat4/Sprachassistent/main/Start.py"
+# Name der heruntergeladenen Datei
+filename = "Start.py"
+# Name der Log-Datei
+log_filename = "Installation.log"
+
+# Funktion zum Herunterladen der Datei von der URL
 def download_file(url, filename):
     try:
         urllib.request.urlretrieve(url, filename)
-        logging.info(f"Die Datei '{filename}' wurde erfolgreich heruntergeladen.")
-    except Exception as e:
-        logging.error(f"Fehler beim Herunterladen der Datei: {e}")
-        pass
+        print(f"Datei {filename} erfolgreich heruntergeladen.")
+    except urllib.error.URLError as e:
+        print(f"Fehler beim Herunterladen der Datei: {e}")
 
-# Konfigurieren des Loggings
-logging.basicConfig(filename=os.path.join(os.path.dirname(__file__), 'Instalation.log'), level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# Funktion zum Erstellen des Log-Eintrags
+def create_log_entry(filename, message):
+    logging.basicConfig(filename=log_filename, level=logging.INFO)
+    logging.info(f"{filename}: {message}")
 
-# URL der Datei zum Herunterladen
-url = "https://raw.githubusercontent.com/Pussycat4/Sprachassistent/main/Start.py"
-
-# Pfad zur aktuellen Verzeichnis
-current_directory = os.path.dirname(os.path.abspath(__file__))
-
-# Dateiname für die heruntergeladene Datei
-filename = os.path.join(current_directory, "Start.py")
-
-# Herunterladen der Datei
+# Herunterladen des Codes von der URL
 download_file(url, filename)
+
+# Erstellen eines Log-Eintrags
+create_log_entry(filename, "Datei erfolgreich heruntergeladen.")
