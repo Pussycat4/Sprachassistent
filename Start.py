@@ -1,55 +1,55 @@
+import os
+import subprocess
+import urllib.request
 
-import speech_recognition as sr
+import pkg_resources
 
-# Initialisierung der Spracherkennung
+def install_package(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package, "--target", "."])
 
-r = sr.Recognizer()
+def download_file(url, filename):
+    urllib.request.urlretrieve(url, filename)
 
-# Schleife für die Spracheingabe
+def install_missing_packages(required_packages, max_attempts=3):
+    installed_packages = [pkg.key for pkg in pkg_resources.working_set]
+    missing_packages = [pkg for pkg in required_packages if pkg.project_name not in installed_packages]
 
-while True:
-
-    with sr.Microphone() as source:
-
-        print("Sage etwas...")
-
-        audio = r.listen(source)
-
-    try:
-
-        # Spracheingabe in Text umwandeln
-
-        text = r.recognize_google(audio, language="de-DE")
-
-        # Überprüfung, ob "Hey Max" im Text enthalten ist
-
-        if "Hey Max" in text:
-
-            print("Spracheingabe geöffnet. Sprechen Sie bitte.")
-
-            while True:
-
-                audio = r.listen(source)
-
-                text = r.recognize_google(audio, language="de-DE")
-
-                if text:
-
-                    print("Sie haben gesagt:", text)
-
-        # Überprüfung, ob "Auf Wiedersehen" im Text enthalten ist
-
-        if "Auf Wiedersehen" in text:
-
-            print("Das Programm wird beendet.")
-
-            break
-
-    except sr.UnknownValueError:
-
-        print("Spracherkennung konnte das Gesprochene nicht verstehen.")
-
-    except sr.RequestError as e:
-
-        print("Fehler bei der Spracherkennung:", str(e))
+    if missing_packages:
+        print("Folgende Pakete werden installiert:")
+        for package in missing_packages:
+            print(package)
         
+        for attempt in range(max_attempts):
+            try:
+                for package in missing_packages:
+                    install_package(package)
+                print("Die fehlenden Pakete wurden erfolgreich installiert.")
+                return
+            except subprocess.CalledProcessError:
+                print(f"Die Installation der fehlenden Pakete ist fehlgeschlagen. Versuch {attempt+1} von {max_attempts}.")
+        
+        print("Die Installation der fehlenden Pakete ist fehlgeschlagen. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.")
+        return
+
+# Erforderliche Pakete
+required_packages = [
+    "SpeechRecognition",
+    "PyAudio",
+    "pyttsx3",
+    "nltk",
+    "torch" if torch_available else "tensorflow",
+    "opencv-python",
+    "pydub"
+]
+
+# Installieren der fehlenden Pakete
+install_missing_packages(required_packages, max_attempts=3)
+
+# Aktuelles Arbeitsverzeichnis
+current_directory = os.path.dirname(os.path.abspath(__file__))
+
+# Download des Codes von der URL
+download_file("https://raw.githubusercontent.com/Pussycat4/Sprachassistent/main/Start.py", "Start.py")
+
+# Ausführen des heruntergeladenen Codes
+subprocess.check_call([sys.executable, "Start.py"])
