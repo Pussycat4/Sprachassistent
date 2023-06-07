@@ -1,12 +1,16 @@
 import os
 import urllib.request
+import logging
 
 def download_file(url, filename):
     try:
         urllib.request.urlretrieve(url, filename)
-        print(f"Die Datei '{filename}' wurde erfolgreich heruntergeladen.")
+        logging.info(f"Die Datei '{filename}' wurde erfolgreich heruntergeladen.")
     except Exception as e:
-        print(f"Fehler beim Herunterladen der Datei: {e}")
+        logging.error(f"Fehler beim Herunterladen der Datei: {e}")
+
+# Konfigurieren des Loggings
+logging.basicConfig(filename='download.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # URL der Datei zum Herunterladen
 url = "https://raw.githubusercontent.com/Pussycat4/Sprachassistent/main/Start.py"
